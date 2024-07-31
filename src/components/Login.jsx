@@ -129,7 +129,7 @@ function Login() {
                     </div>
                     <div className="flex flex-col font-cairo w-full justify-center gap-4 mx-auto">
                         <label  className="text-end"  htmlFor="">كلمة المرور</label>
-                        <input name="password" onChange={handleChange} className=" md:w-[500px] mx-6 md:mx-0 h-[40px] outline-none rounded-md shadow-md w-[300px]"   type="text" />
+                        <input name="password" onChange={handleChange} className=" md:w-[500px] mx-6 md:mx-0 h-[40px] outline-none rounded-md shadow-md w-[300px]"   type="password" />
                     </div>
                 </div>
 
