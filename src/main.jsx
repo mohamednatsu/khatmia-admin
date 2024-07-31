@@ -5,6 +5,7 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from "@material-tailwind/react";
 import Messages from './pages/Messages.jsx'
+import Cookies from "js-cookie"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -12,7 +13,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ThemeProvider>
       <>
       <App />
-      <Messages />
+      {
+        Cookies.get("token") && <Messages />
+      }
       </>
     </ThemeProvider>
     </BrowserRouter>

@@ -3,6 +3,7 @@ import axios from "axios";
 import { API_URL } from "../api";
 import Loading from "../components/loading";
 import { MdDeleteForever } from "react-icons/md";
+import Add from "../components/Add";
 
 export default function AllEvents() {
     const [events, setEvents] = useState([]);
@@ -124,6 +125,8 @@ export default function AllEvents() {
                     </div>
                 )}
             </div>
+
+            <Add title="حدث" link="/upload-event"/>
         </div>
     );
 }

@@ -17,3 +17,8 @@
         transform: rotate(360deg);
     }
 }
+
+.ytp-cued-thumbnail-overlay-image {
+    width: 30px;
+    height: 30px;
+}

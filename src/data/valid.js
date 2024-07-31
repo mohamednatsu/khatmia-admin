@@ -120,3 +120,23 @@ export function validPhoto(values) {
 
     return errors
 }
+
+
+export function validLogin(values)
+{
+    let errors = {
+        valid : true
+    }
+
+    if (values.username == "") {
+        errors.message = "ارجوك قم بادخال اسم المستخدم"
+        errors.valid = false
+    }
+
+    if (values.password == "") {
+        errors.message = "ارجوك قم بادخال كلمة المرور"
+        errors.valid = false
+    }
+
+    return errors
+}

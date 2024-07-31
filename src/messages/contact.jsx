@@ -4,6 +4,8 @@ import { API_URL } from "../api";
 import Loading from "../components/loading";
 import { FaReply } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { RiChatDeleteLine } from "react-icons/ri";
+
 
 export default function AllContact() {
     const [events, setEvents] = useState([]);
@@ -30,6 +32,14 @@ export default function AllContact() {
         getAll();
     }, []);
 
+    const deleteMessage = (question) => {
+        axios.delete(`${API_URL}/delete-contact/${question}`)
+            .then(res => {
+                getAll();
+            }
+            ).cathc(err => console.log(err))
+    }
+
 
     return (
         <div className="flex flex-col gap-10 justify-around items-center my-10">
@@ -50,6 +60,9 @@ export default function AllContact() {
                 ) : (
                     <div className="flex flex-col gap-4 items-center justify-around ">
                         {events.map((user, key) => (
+                            <div className="flex flex-row">
+
+                                <RiChatDeleteLine onClick={() => deleteMessage(user.question)} size={30} color="red" className="cursor-pointer" />
                             <div
                                 key={key}
                                 className="px-7 font-cairo flex flex-col py-8 justify-between items-center h-1/2 w-[500px] gap-6 my-7 bg-gray-50 p-4 rounded-md shadow-md"
@@ -81,7 +94,10 @@ export default function AllContact() {
                                 }
                                 
                             </div>
+                        </div>
                         ))}
+
+                    { events.length == 0  && "No Contact"}
                     </div>
                 )}
             </div>

@@ -13,8 +13,7 @@ function News() {
     const [loading, setLoading] = useState(true);
 
     const getAll = () => {
-        axios.get(`${API_URL}/get-news`).then((res) => {
-            console.log(res);
+        axios.get(`${API_URL}/get-photos`).then((res) => {
             setLoading(false);
             setNews(res.data);
         });
@@ -24,9 +23,9 @@ function News() {
         getAll();
     }, []);
 
-    const deleteBook = (titleNew) => {
+    const deleteBook = (id) => {
         axios
-            .delete(`${API_URL}/delete-new/${titleNew}`)
+            .delete(`${API_URL}/delete-photo/${id}`)
             .then((res) => {
                 console.log(res);
                 setLoading(false);
@@ -45,7 +44,7 @@ function News() {
                     <b className="mr-3 bg-gray-100 px-4 py-0 rounded-full">
                         {news.length}
                     </b>
-                    الاخبار
+                    الصور
                 </h2>
                 <div className=" bg-red-500 w-1/2 h-2 rounded-md"></div>
             </div>
@@ -59,20 +58,19 @@ function News() {
                             key={key}
                             className="mx-auto font-cairo flex flex-col gap-4 justify-around py-3 px-4 items-center my-5 md:w-[350px] w-[200px] md:h-[400px]  bg-gray-100 rounded-md shadow-lg"
                         >
-                            <h3 className="  text-lg">{post.title}</h3>
                             <img
-                                className=" md:w-[160px] w-[100px] rounded-md"
-                                src={post.cover}
+                                className=" md:w-[180px] w-[120px] rounded-md"
+                                src={post.link}
                                 alt=""
                             />
                             <div className="w-full p-5  justify-around   items-center flex flex-row">
                                 <div
                                     onClick={() => {
-                                        deleteBook(post.title);
+                                        deleteBook(post._id);
                                     }}
                                     className="text-red-400 cursor-pointer justify-center items-center flex flex-row"
                                 >
-                                    حذف الخبر
+                                    حذف الصورة
                                     <MdDeleteForever
                                         className=" cursor-pointer md:text-[20px] text-[20px]"
                                         color="red"
@@ -83,10 +81,10 @@ function News() {
                     ))}
                 </div>
             ) : (
-                <p className=" text-center">No News</p>
+                <p className=" text-center">No Photos</p>
             )}
 
-            <Add title="خبر" link="/upload-news"/>
+            <Add title="صورة" link="/upload-photo"/>
         </div>
     );
 }

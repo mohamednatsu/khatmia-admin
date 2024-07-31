@@ -4,6 +4,10 @@ import { MdDeleteForever } from "react-icons/md";
 import axios from "axios";
 import { API_URL } from "../api";
 import Loading from "../components/loading";
+import { IoIosAddCircleOutline } from "react-icons/io";
+
+import {Link} from "react-router-dom"
+import Add from "../components/Add";
 
 
 
@@ -71,6 +75,8 @@ function ShowBooks() {
 
                     : <p className=" text-center">No Books</p>
                 )}
+
+            <Add title="كتاب" link="/"/>
         </div>
     );
 }
