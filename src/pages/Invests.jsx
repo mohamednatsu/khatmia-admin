@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
-import { FaRegEdit } from "react-icons/fa";
 
 import axios from "axios";
 import { API_URL } from "../api";
 import Loading from "../components/loading";
 import Add from "../components/Add";
-import { Link } from "react-router-dom";
 
-function News() {
+function Invests() {
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
     const getAll = () => {
-        axios.get(`${API_URL}/get-news`).then((res) => {
-            console.log(res);
+        axios.get(`${API_URL}/get-invests`).then((res) => {
             setLoading(false);
             setNews(res.data);
         });
@@ -23,11 +20,10 @@ function News() {
         getAll();
     }, []);
 
-    const deleteNews = (titleNew) => {
+    const deletePost = (id) => {
         axios
-            .delete(`${API_URL}/delete-new/${titleNew}`)
+            .delete(`${API_URL}/delete-invest/${id}`)
             .then((res) => {
-                console.log(res);
                 setLoading(false);
                 getAll();
             })
@@ -44,7 +40,7 @@ function News() {
                     <b className="mr-3 bg-gray-100 px-4 py-0 rounded-full">
                         {news.length}
                     </b>
-                    الاخبار
+                    التحقيقات
                 </h2>
                 <div className=" bg-red-500 w-1/2 h-2 rounded-md"></div>
             </div>
@@ -59,51 +55,35 @@ function News() {
                             className="mx-auto font-cairo flex flex-col gap-4 justify-around py-3 px-4 items-center my-5 md:w-[350px] w-[200px] md:h-[400px]  bg-gray-100 rounded-md shadow-lg"
                         >
                             <h3 className="  text-lg">{post.title}</h3>
-                            <img
-                                className=" md:w-[160px] w-[100px] rounded-md"
-                                src={post.cover}
-                                alt=""
-                            />
+                            <a
+                                className=" md:w-[160px] w-[100px] rounded-md text-center bg-black p-5 text-white"
+                                href={post.file}
+                                target="_blank"
+                            >رؤية الملف</a>
                             <div className="w-full p-5  justify-around   items-center flex flex-row">
                                 <div
-                                    className=" cursor-pointer justify-center gap-5 items-center flex flex-row"
-                                >
-
-                                    <div 
                                     onClick={() => {
-                                        deleteNews(post.title);
+                                        deletePost(post._id);
                                     }}
-                                    className="flex flex-row items-start justify-center gap-2 text-red-400">
-
-                                    حذف الخبر
+                                    className="text-red-400 cursor-pointer justify-center items-center flex flex-row"
+                                >
+                                    حذف التحقيق
                                     <MdDeleteForever
                                         className=" cursor-pointer md:text-[20px] text-[20px]"
                                         color="red"
-                                        />
-                                    </div>
-
-                                    <Link 
-                                    to={"/edit-new"}
-                                    state={post}
-                                    className="flex flex-row items-start justify-center gap-2 text-black">
-                                    تعديل الخبر
-                                    <FaRegEdit
-                                        className=" cursor-pointer md:text-[20px] text-[20px]"
-                                        color="black"
-                                        />
-                                    </Link>
+                                    />
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
             ) : (
-                <p className=" text-center font-cairo">لا اخبار</p>
+                <p className=" text-center font-cairo">لا توجد تحقيقات</p>
             )}
 
-            <Add title="خبر" link="/upload-news"/>
+            <Add title="تحقيق" link="/upload-invest"/>
         </div>
     );
 }
 
-export default News;
+export default Invests;

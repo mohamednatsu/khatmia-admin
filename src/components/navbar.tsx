@@ -46,6 +46,12 @@ export default function Navbar() {
                             <NavLink to="/videos" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الفيديوهات</NavLink>
                         </li>
                         <li>
+                            <NavLink to="/invest" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">التحقيقات</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/manuscripts" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">المخطوطات</NavLink>
+                        </li>
+                        <li>
                             <NavLink to="/photos" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الصور</NavLink>
                         </li>
                         {

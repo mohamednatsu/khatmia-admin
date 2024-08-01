@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 
-import validAll, { validNew } from "../data/valid";
+import validAll, { validNew, validUpload } from "../data/valid";
 
 import { RiLoader2Fill } from "react-icons/ri";
 
@@ -13,21 +13,18 @@ import { BsCheckCircle } from "react-icons/bs";
 import axios from "axios";
 import { API_URL } from "../api";
 
-function UploadNews() {
+function UploadMainscure() {
     const storage = getStorage(appFire)
 
     const [errors, setErrors] = useState("");
     const [uploading, setUploading ] = useState(false)
     const [uploadState, setUploadState ] = useState(false)
-    const [imageURL, setImageURL ] = useState("")
-    const [users, setUsers ] = useState([])
 
     const [image, setImage ] = useState({})
 
     const [values, setValues] = useState({
         title: '',
-        description: '',
-        cover: '',
+        file: '',
     })
 
     const handleChange = (e) => {
@@ -38,25 +35,24 @@ function UploadNews() {
     const handleChangeImage = async (e) => {
         const imageFile = e.target.files[0]
         setImage(imageFile)
-        values.cover = image.name
+        values.file = image.name
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (validNew(values).valid) {
+        if (validUpload(values).valid) {
             if(image) {
                 try {
+
                     // set of image in storage
                     setUploading(true)
-                    const storageImageRef = ref(storage, `news/${values.title}/`+values.title)
+                    const storageImageRef = ref(storage, `manuscripts/${values.title}/`+values.title)
                     await uploadBytes(storageImageRef, image)
                     const downloadImageURL = await getDownloadURL(storageImageRef)
-                    console.log("image:",downloadImageURL)
-                    setImageURL(downloadImageURL)
-                    values.cover = downloadImageURL
+                    values.file = downloadImageURL
 
                     // save in db
-                    axios.post(`${API_URL}/upload-news`, values)
+                    axios.post(`${API_URL}/upload-manuscript`, values)
                     .then(res => {
                         console.log(res)
                     })
@@ -79,7 +75,7 @@ function UploadNews() {
                 top: 0,
                 behavior: 'smooth',
             })
-            setErrors(validNew(values).message)
+            setErrors(validAll(values).message)
         }
 
         console.log(errors)
@@ -90,7 +86,7 @@ function UploadNews() {
         setTimeout(() => {
             setErrors("");
             setUploadState(false)
-            }, 20000);
+            }, 2000);
             //clear time
             return () => clearTimeout();
     }, [errors])
@@ -106,27 +102,11 @@ function UploadNews() {
     }, [uploadState])
 
 
-    const getAllUsers = () => {
-        axios.get(`${API_URL}/user/all`)
-        .then(res => {
-            setUsers(res.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }
-
-
-    useEffect(() => {
-         // here to get all users
-        getAllUsers();
-    }, [users])
-
     return (
         <div className=" flex justify-center items-center">
             <form onSubmit={handleSubmit} className=" flex justify-around items-center gap-5 flex-col my-20">
             <div className=" font-cairo flex flex-col justify-center gap-4 items-center">
-                <h2 className=" text-2xl font-bold "> رفع خبر جديد</h2>
+                <h2 className=" text-2xl font-bold ">رفع مخطوطة جديدة</h2>
                 <div className=" bg-black w-1/2 h-2 rounded-md"></div>
             </div>
 
@@ -149,16 +129,12 @@ function UploadNews() {
                 
                 <div className="flex justify-around items-center gap-5 flex-col p-5 mx-auto">
                     <div className="flex flex-col font-cairo w-full justify-center gap-4 mx-auto">
-                        <label className="text-end"   htmlFor="">عنوان الخبر</label>
+                        <label className="text-end"   htmlFor="">عنوان المخطوطة</label>
                         <input name="title" onChange={handleChange} className=" md:w-[500px] mx-6 md:mx-0 h-[40px] outline-none rounded-md shadow-md w-[300px] "    type="text" />
                     </div>
                     <div className="flex flex-col font-cairo w-full justify-center gap-4 mx-auto">
-                        <label  className="text-end"  htmlFor="">وصف الخبر</label>
-                        <textarea name="description" onChange={handleChange} className=" md:w-[500px] mx-6 md:mx-0 h-[80px] outline-none rounded-md shadow-md w-[300px]"   type="text" />
-                    </div>
-                    <div className="flex flex-col font-cairo w-full justify-center gap-4 mx-auto">
-                        <label  className="text-end"  htmlFor="">رفع غلاف الخبر</label>
-                        <input name="cover" onChange={handleChangeImage}  className=" md:w-[500px] mx-6 md:mx-0 h-[40px] outline-none rounded-md shadow-md w-[300px]"   type="file" />
+                        <label  className="text-end"  htmlFor="">رفع المخطوطة </label>
+                        <input name="file" onChange={handleChangeImage}  className=" md:w-[500px] mx-6 md:mx-0 h-[40px] outline-none rounded-md shadow-md w-[300px]"   type="file" />
                     </div>
                 </div>
 
@@ -174,4 +150,4 @@ function UploadNews() {
 
 
 
-export default UploadNews
+export default UploadMainscure

@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
-import { FaRegEdit } from "react-icons/fa";
 
 import axios from "axios";
 import { API_URL } from "../api";
 import Loading from "../components/loading";
 import Add from "../components/Add";
-import { Link } from "react-router-dom";
 
-function News() {
-    const [news, setNews] = useState([]);
+function Manuscript() {
+    const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const getAll = () => {
-        axios.get(`${API_URL}/get-news`).then((res) => {
-            console.log(res);
+        axios.get(`${API_URL}/get-manuscripts`).then((res) => {
             setLoading(false);
-            setNews(res.data);
+            setPosts(res.data);
         });
     };
 
@@ -23,11 +20,10 @@ function News() {
         getAll();
     }, []);
 
-    const deleteNews = (titleNew) => {
+    const deletePost = (id) => {
         axios
-            .delete(`${API_URL}/delete-new/${titleNew}`)
+            .delete(`${API_URL}/delete-manuscript/${id}`)
             .then((res) => {
-                console.log(res);
                 setLoading(false);
                 getAll();
             })
@@ -42,68 +38,52 @@ function News() {
             <div className=" font-cairo flex flex-col justify-center gap-4 items-center">
                 <h2 className=" text-2xl font-bold ">
                     <b className="mr-3 bg-gray-100 px-4 py-0 rounded-full">
-                        {news.length}
+                        {posts.length}
                     </b>
-                    الاخبار
+                    المخطوطات
                 </h2>
                 <div className=" bg-red-500 w-1/2 h-2 rounded-md"></div>
             </div>
 
             {loading ? (
                 <Loading size={"33"} color={"black"} />
-            ) : news.length > 0 ? (
+            ) : posts.length > 0 ? (
                 <div className="grid md:grid-cols-3 grid-cols-2 w-full mx-auto">
-                    {news.map((post, key) => (
+                    {posts.map((post, key) => (
                         <div
                             key={key}
                             className="mx-auto font-cairo flex flex-col gap-4 justify-around py-3 px-4 items-center my-5 md:w-[350px] w-[200px] md:h-[400px]  bg-gray-100 rounded-md shadow-lg"
                         >
                             <h3 className="  text-lg">{post.title}</h3>
-                            <img
-                                className=" md:w-[160px] w-[100px] rounded-md"
-                                src={post.cover}
-                                alt=""
-                            />
+                            <a
+                                className=" md:w-[160px] w-[100px] rounded-md text-center bg-black p-5 text-white"
+                                href={post.file}
+                                target="_blank"
+                            >رؤية الملف</a>
                             <div className="w-full p-5  justify-around   items-center flex flex-row">
                                 <div
-                                    className=" cursor-pointer justify-center gap-5 items-center flex flex-row"
-                                >
-
-                                    <div 
                                     onClick={() => {
-                                        deleteNews(post.title);
+                                        deletePost(post._id);
                                     }}
-                                    className="flex flex-row items-start justify-center gap-2 text-red-400">
-
-                                    حذف الخبر
+                                    className="text-red-400 cursor-pointer justify-center items-center flex flex-row"
+                                >
+                                    حذف المخطوط
                                     <MdDeleteForever
                                         className=" cursor-pointer md:text-[20px] text-[20px]"
                                         color="red"
-                                        />
-                                    </div>
-
-                                    <Link 
-                                    to={"/edit-new"}
-                                    state={post}
-                                    className="flex flex-row items-start justify-center gap-2 text-black">
-                                    تعديل الخبر
-                                    <FaRegEdit
-                                        className=" cursor-pointer md:text-[20px] text-[20px]"
-                                        color="black"
-                                        />
-                                    </Link>
+                                    />
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
             ) : (
-                <p className=" text-center font-cairo">لا اخبار</p>
+                <p className=" text-center font-cairo ">لا توجد مخطوطات</p>
             )}
 
-            <Add title="خبر" link="/upload-news"/>
+            <Add title="مخطوطة" link="/upload-manuscript"/>
         </div>
     );
 }
 
-export default News;
+export default Manuscript;

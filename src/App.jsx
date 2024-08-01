@@ -20,6 +20,12 @@ import { useEffect, useState } from 'react'
 import Photos from './pages/Photos'
 import Cookies from 'js-cookie'
 import UploadLectures from './pages/UploadLectures'
+import UploadInvest from './pages/UploadInvest'
+import UploadMainscure from './pages/UploadMainscure'
+import Invests from './pages/Invests'
+import Manuscript from './pages/Manuscript'
+import EditNew from './pages/EditNews'
+
 
 
 
@@ -49,6 +55,7 @@ export default function App() {
         <Route path="/upload-news" element={<UploadNews />} />
         <Route path="/upload-video" element={<UploadVideo />} />
         <Route path="/news" element={<News />} />
+        <Route path="/edit-new" element={<EditNew />} />
         <Route path="/users" element={<Users />} />
         <Route path="/upload-event" element={<Events />} />ْ
         <Route path="/videos" element={<Videos />} />ْ
@@ -58,6 +65,10 @@ export default function App() {
         <Route path="/contact" element={<AllContact />} />
         <Route path="/reply" element={<Reply />} />
         <Route path="/photos" element={<Photos />} />
+        <Route path="/invest" element={<Invests />} />
+        <Route path="/upload-invest" element={<UploadInvest />} />
+        <Route path="/upload-manuscript" element={<UploadMainscure />} />
+        <Route path="/manuscripts" element={<Manuscript />} />
         <Route path="/upload-lecture" element={<UploadLectures />} />
       </Routes>
           </>

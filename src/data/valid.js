@@ -59,6 +59,25 @@ export function validNew(values) {
     return errors
 }
 
+export function validNewEdit(values) {
+
+    let errors = {
+        valid : true
+    }
+
+    if (values.category == "") {
+        errors.message = "ارجوك قم بادخال الفئة"
+        errors.valid = false
+    }
+
+    if (values.description == "") {
+        errors.message = "ارجوك قم بادخال الوصف"
+        errors.valid = false
+    }
+
+    return errors
+}
+
 
 export function validVideo(values) {
     const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)/;
@@ -137,6 +156,29 @@ export function validLogin(values)
         errors.message = "ارجوك قم بادخال كلمة المرور"
         errors.valid = false
     }
+
+    return errors
+}
+
+
+export function validUpload(values)
+{
+
+    let errors = {
+        valid : true
+    }
+
+    if (values.title == "") {
+        errors.message = "ارجوك قم بادخال العنوان"
+        errors.valid = false
+    }
+
+
+    if (values.bookfile == "") {
+        errors.message = "ارجوك قم برفع الملف"
+        errors.valid = false
+    }
+
 
     return errors
 }
