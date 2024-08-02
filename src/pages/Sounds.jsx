@@ -48,18 +48,18 @@ function Sounds() {
             {loading ? (
                 <Loading size={"33"} color={"black"} />
             ) : news.length > 0 ? (
-                <div className="grid md:grid-cols-3 grid-cols-2 w-full mx-auto">
+                <div className="grid md:grid-cols-4 grid-cols-3 w-full mx-auto">
                     {news.map((post, key) => (
                         <div
                             key={key}
                             className="mx-auto font-cairo flex flex-col gap-4 justify-around py-3 px-4 items-center my-5 md:w-[350px] w-[200px] md:h-[400px]  bg-gray-100 rounded-md shadow-lg"
                         >
                             <h3 className="  text-lg">{post.title}</h3>
-                            <a
+                            <audio
                                 className=" md:w-[160px] w-[100px] rounded-md text-center bg-black p-5 text-white"
                                 href={post.link}
                                 target="_blank"
-                            >تشغيل الصوت</a>
+                            ></audio>
                             <div className="w-full p-5  justify-around   items-center flex flex-row">
                                 <div
                                     onClick={() => {
