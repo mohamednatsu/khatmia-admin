@@ -53,7 +53,7 @@ function UploadSoundFile() {
                     const downloadImageURL = await getDownloadURL(storageImageRef)
                     console.log("sound:",downloadImageURL)
                     setImageURL(downloadImageURL)
-                    values.cover = downloadImageURL
+                    values.link = downloadImageURL
 
                     // save in db
                     axios.post(`${API_URL}/upload-sound`, values)
