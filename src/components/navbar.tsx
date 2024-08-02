@@ -34,6 +34,9 @@ export default function Navbar() {
                             <NavLink to="/books" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الكتب</NavLink>
                         </li>
                         <li>
+                            <NavLink to="/sounds" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">صوتيات</NavLink>
+                        </li>
+                        <li>
                             <NavLink to="/news" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الاخبار</NavLink>
                         </li>
                         <li>

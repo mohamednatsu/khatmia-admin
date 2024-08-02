@@ -1,33 +1,27 @@
 
 import { useEffect, useState } from "react";
 
-import { validNew } from "../data/valid";
+import  { validUpload, validVideo } from "../data/valid";
 
 import { RiLoader2Fill } from "react-icons/ri";
 
-import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage"
-
 import { MdErrorOutline } from "react-icons/md";
-import appFire from "../data/firebase";
+
 import { BsCheckCircle } from "react-icons/bs";
 import axios from "axios";
 import { API_URL } from "../api";
+import Add from "../components/Add";
 
-function UploadNews() {
-    const storage = getStorage(appFire)
+function UploadSoundLink() {
 
     const [errors, setErrors] = useState("");
     const [uploading, setUploading ] = useState(false)
     const [uploadState, setUploadState ] = useState(false)
-    const [imageURL, setImageURL ] = useState("")
-    const [users, setUsers ] = useState([])
 
-    const [image, setImage ] = useState({})
 
     const [values, setValues] = useState({
         title: '',
-        description: '',
-        cover: '',
+        link: '',
     })
 
     const handleChange = (e) => {
@@ -35,28 +29,16 @@ function UploadNews() {
         setValues(objValues)
     }
 
-    const handleChangeImage = async (e) => {
-        const imageFile = e.target.files[0]
-        setImage(imageFile)
-        values.cover = image.name
-    }
+    
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        if (validNew(values).valid) {
-            if(image) {
+        if (validUpload(values).valid) {
                 try {
                     // set of image in storage
                     setUploading(true)
-                    const storageImageRef = ref(storage, `news/${values.title}/`+values.title)
-                    await uploadBytes(storageImageRef, image)
-                    const downloadImageURL = await getDownloadURL(storageImageRef)
-                    console.log("image:",downloadImageURL)
-                    setImageURL(downloadImageURL)
-                    values.cover = downloadImageURL
-
                     // save in db
-                    axios.post(`${API_URL}/upload-news`, values)
+                    axios.post(`${API_URL}/upload-sound`, values)
                     .then(res => {
                         console.log(res)
                     })
@@ -72,17 +54,14 @@ function UploadNews() {
                     setUploading(false)
                     setUploadState(true)
                 }
-            }
         }
         else {
             scrollTo({
                 top: 0,
                 behavior: 'smooth',
             })
-            setErrors(validNew(values).message)
+            setErrors(validUpload(values).message)
         }
-
-        console.log(errors)
     };
 
     useEffect(() => {
@@ -102,35 +81,19 @@ function UploadNews() {
             }, 20000);
             
             //clear time
-            return () => clearTimeout();
+            return () => clearTimeout();    
     }, [uploadState])
 
-
-    const getAllUsers = () => {
-        axios.get(`${API_URL}/user/all`)
-        .then(res => {
-            setUsers(res.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }
-
-
-    useEffect(() => {
-         // here to get all users
-        getAllUsers();
-    }, [users])
 
     return (
         <div className=" flex justify-center items-center">
             <form onSubmit={handleSubmit} className=" flex justify-around items-center gap-5 flex-col my-20">
             <div className=" font-cairo flex flex-col justify-center gap-4 items-center">
-                <h2 className=" text-2xl font-bold "> رفع خبر جديد</h2>
+                <h2 className=" text-2xl font-bold ">رفع صوت جديد</h2>
                 <div className=" bg-black w-1/2 h-2 rounded-md"></div>
             </div>
 
-                {errors == "" ?  
+                {!errors ?  
                     "" : 
                     <div className="w-1/2 text-sm md:text-lg h-10 flex justify-center md:gap-5 gap-1 items-center rounded-md bg-red-500 shadow-md font-cairo text-white">
                         {errors}
@@ -149,16 +112,12 @@ function UploadNews() {
                 
                 <div className="flex justify-around items-center gap-5 flex-col p-5 mx-auto">
                     <div className="flex flex-col font-cairo w-full justify-center gap-4 mx-auto">
-                        <label className="text-end"   htmlFor="">عنوان الخبر</label>
+                        <label className="text-end"   htmlFor="">عنوان الصوت</label>
                         <input name="title" onChange={handleChange} className=" md:w-[500px] mx-6 md:mx-0 h-[40px] outline-none rounded-md shadow-md w-[300px] "    type="text" />
                     </div>
                     <div className="flex flex-col font-cairo w-full justify-center gap-4 mx-auto">
-                        <label  className="text-end"  htmlFor="">وصف الخبر</label>
-                        <textarea name="description" onChange={handleChange} className=" md:w-[500px] mx-6 md:mx-0 h-[80px] outline-none rounded-md shadow-md w-[300px]"   type="text" />
-                    </div>
-                    <div className="flex flex-col font-cairo w-full justify-center gap-4 mx-auto">
-                        <label  className="text-end"  htmlFor="">رفع غلاف الخبر</label>
-                        <input name="cover" onChange={handleChangeImage}  className=" md:w-[500px] mx-6 md:mx-0 h-[40px] outline-none rounded-md shadow-md w-[300px]"   type="file" />
+                        <label  className="text-end"  htmlFor="">رابط الصوت</label>
+                        <textarea name="link" onChange={handleChange} className=" md:w-[500px] mx-6 md:mx-0 h-[80px] outline-none rounded-md shadow-md w-[300px]"   type="text" />
                     </div>
                 </div>
 
@@ -168,10 +127,11 @@ function UploadNews() {
                     </button>
                 </div>
             </form>
+            <Add title="صوت" link="/upload-sound-file"/>
         </div>
     )
 }
 
 
 
-export default UploadNews
+export default UploadSoundLink

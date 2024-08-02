@@ -1,7 +1,6 @@
 
 import { Routes , Route } from 'react-router-dom'
 import Navbar from './components/navbar'
-import UploadSound from './pages/UploadSound'
 import Upload from './pages/upload'
 import ShowBooks from './pages/showBooks'
 import UploadNews from './pages/UploadNews'
@@ -25,6 +24,9 @@ import UploadMainscure from './pages/UploadMainscure'
 import Invests from './pages/Invests'
 import Manuscript from './pages/Manuscript'
 import EditNew from './pages/EditNews'
+import UploadSoundFile from './pages/UploadSoundFile'
+import Sounds from './pages/Sounds'
+import UploadSoundLink from './pages/UploadSoundLink'
 
 
 
@@ -50,10 +52,12 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Upload />} />
-        <Route path="/upload-sound" element={<UploadSound />} />
         <Route path="/books" element={<ShowBooks />} />
         <Route path="/upload-news" element={<UploadNews />} />
         <Route path="/upload-video" element={<UploadVideo />} />
+        <Route path="/upload-sound-file" element={<UploadSoundFile />} />
+        <Route path="/upload-sound-link" element={<UploadSoundLink />} />
+        <Route path="/sounds" element={<Sounds />} />
         <Route path="/news" element={<News />} />
         <Route path="/edit-new" element={<EditNew />} />
         <Route path="/users" element={<Users />} />

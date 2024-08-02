@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 
-import { validNew } from "../data/valid";
+import { validNew, validUpload } from "../data/valid";
 
 import { RiLoader2Fill } from "react-icons/ri";
 
@@ -12,8 +12,9 @@ import appFire from "../data/firebase";
 import { BsCheckCircle } from "react-icons/bs";
 import axios from "axios";
 import { API_URL } from "../api";
+import Add from "../components/Add";
 
-function UploadNews() {
+function UploadSoundFile() {
     const storage = getStorage(appFire)
 
     const [errors, setErrors] = useState("");
@@ -26,8 +27,7 @@ function UploadNews() {
 
     const [values, setValues] = useState({
         title: '',
-        description: '',
-        cover: '',
+        link: '',
     })
 
     const handleChange = (e) => {
@@ -38,25 +38,25 @@ function UploadNews() {
     const handleChangeImage = async (e) => {
         const imageFile = e.target.files[0]
         setImage(imageFile)
-        values.cover = image.name
+        values.link = image.name
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (validNew(values).valid) {
+        if (validUpload(values).valid) {
             if(image) {
                 try {
                     // set of image in storage
                     setUploading(true)
-                    const storageImageRef = ref(storage, `news/${values.title}/`+values.title)
+                    const storageImageRef = ref(storage, `sounds/${values.title}/`+values.title)
                     await uploadBytes(storageImageRef, image)
                     const downloadImageURL = await getDownloadURL(storageImageRef)
-                    console.log("image:",downloadImageURL)
+                    console.log("sound:",downloadImageURL)
                     setImageURL(downloadImageURL)
                     values.cover = downloadImageURL
 
                     // save in db
-                    axios.post(`${API_URL}/upload-news`, values)
+                    axios.post(`${API_URL}/upload-sound`, values)
                     .then(res => {
                         console.log(res)
                     })
@@ -79,7 +79,7 @@ function UploadNews() {
                 top: 0,
                 behavior: 'smooth',
             })
-            setErrors(validNew(values).message)
+            setErrors(validUpload(values).message)
         }
 
         console.log(errors)
@@ -105,7 +105,6 @@ function UploadNews() {
             return () => clearTimeout();
     }, [uploadState])
 
-
     const getAllUsers = () => {
         axios.get(`${API_URL}/user/all`)
         .then(res => {
@@ -126,7 +125,7 @@ function UploadNews() {
         <div className=" flex justify-center items-center">
             <form onSubmit={handleSubmit} className=" flex justify-around items-center gap-5 flex-col my-20">
             <div className=" font-cairo flex flex-col justify-center gap-4 items-center">
-                <h2 className=" text-2xl font-bold "> رفع خبر جديد</h2>
+                <h2 className=" text-2xl font-bold "> رفع صوت جديد</h2>
                 <div className=" bg-black w-1/2 h-2 rounded-md"></div>
             </div>
 
@@ -149,16 +148,12 @@ function UploadNews() {
                 
                 <div className="flex justify-around items-center gap-5 flex-col p-5 mx-auto">
                     <div className="flex flex-col font-cairo w-full justify-center gap-4 mx-auto">
-                        <label className="text-end"   htmlFor="">عنوان الخبر</label>
+                        <label className="text-end"   htmlFor="">عنوان الصوت</label>
                         <input name="title" onChange={handleChange} className=" md:w-[500px] mx-6 md:mx-0 h-[40px] outline-none rounded-md shadow-md w-[300px] "    type="text" />
                     </div>
                     <div className="flex flex-col font-cairo w-full justify-center gap-4 mx-auto">
-                        <label  className="text-end"  htmlFor="">وصف الخبر</label>
-                        <textarea name="description" onChange={handleChange} className=" md:w-[500px] mx-6 md:mx-0 h-[80px] outline-none rounded-md shadow-md w-[300px]"   type="text" />
-                    </div>
-                    <div className="flex flex-col font-cairo w-full justify-center gap-4 mx-auto">
-                        <label  className="text-end"  htmlFor="">رفع غلاف الخبر</label>
-                        <input name="cover" onChange={handleChangeImage}  className=" md:w-[500px] mx-6 md:mx-0 h-[40px] outline-none rounded-md shadow-md w-[300px]"   type="file" />
+                        <label  className="text-end"  htmlFor="">رفع الصوت</label>
+                        <input name="link" onChange={handleChangeImage}  className=" md:w-[500px] mx-6 md:mx-0 h-[40px] outline-none rounded-md shadow-md w-[300px]"   type="file" />
                     </div>
                 </div>
 
@@ -168,10 +163,11 @@ function UploadNews() {
                     </button>
                 </div>
             </form>
+            <Add title="رابط صوتي" link="/upload-sound-link"/>
         </div>
     )
 }
 
 
 
-export default UploadNews
+export default UploadSoundFile

@@ -174,7 +174,7 @@ export function validUpload(values)
     }
 
 
-    if (values.bookfile == "") {
+    if (values.link == "") {
         errors.message = "ارجوك قم برفع الملف"
         errors.valid = false
     }
