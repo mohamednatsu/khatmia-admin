@@ -22,7 +22,7 @@ function Sounds() {
 
     const deletePost = (id) => {
         axios
-            .delete(`${API_URL}/delete-sounds/${id}`)
+            .delete(`${API_URL}/delete-sound/${id}`)
             .then((res) => {
                 setLoading(false);
                 getAll();
