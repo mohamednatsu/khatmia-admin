@@ -5,6 +5,7 @@ import axios from "axios";
 import { API_URL } from "../api";
 import Loading from "../components/loading";
 import Add from "../components/Add";
+import { FaPlay } from "react-icons/fa";
 
 function Sounds() {
     const [news, setNews] = useState([]);
@@ -48,18 +49,23 @@ function Sounds() {
             {loading ? (
                 <Loading size={"33"} color={"black"} />
             ) : news.length > 0 ? (
-                <div className="grid md:grid-cols-4 grid-cols-3 w-full mx-auto">
+                <div className="grid md:grid-cols-3 grid-cols-2 w-full mx-auto">
                     {news.map((post, key) => (
                         <div
                             key={key}
                             className="mx-auto font-cairo flex flex-col gap-4 justify-around py-3 px-4 items-center my-5 md:w-[350px] w-[200px] md:h-[400px]  bg-gray-100 rounded-md shadow-lg"
                         >
                             <h3 className="  text-lg">{post.title}</h3>
-                            <audio
-                                className=" md:w-[160px] w-[100px] rounded-md text-center bg-black p-5 text-white"
-                                href={post.link}
-                                target="_blank"
-                            ></audio>
+                            <div className="flex flex-col justify-center gap-4 items-center">
+                                <a
+                                    className=" md:w-[160px] w-[100px] rounded-md text-center bg-black p-5 text-white"
+                                    href={post.link}
+                                    target="_blank"
+                                >
+                                    تشغيل الصوت
+                                <FaPlay size={20} color="white"/>
+                                </a>
+                            </div>
                             <div className="w-full p-5  justify-around   items-center flex flex-row">
                                 <div
                                     onClick={() => {
