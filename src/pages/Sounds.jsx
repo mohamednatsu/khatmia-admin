@@ -56,7 +56,7 @@ function Sounds() {
                             className="mx-auto font-cairo flex flex-col gap-4 justify-around py-3 px-4 items-center my-5 md:w-[350px] w-[200px] md:h-[400px]  bg-gray-100 rounded-md shadow-lg"
                         >
                             <h3 className="  text-lg">{post.title}</h3>
-                            <div className="flex flex-col justify-center gap-4 items-center">
+                            <div className="flex flex-row justify-center gap-4 items-center">
                                 <a
                                     className=" md:w-[160px] w-[100px] rounded-md text-center bg-black p-5 text-white"
                                     href={post.link}
