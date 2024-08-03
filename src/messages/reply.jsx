@@ -45,7 +45,7 @@ function Reply() {
                     // set of image in storage
                     setUploading(true)
                     // save in db
-                    axios.post(`http://localhost:4000/reply-user`, values)
+                    axios.post(`https://khatmia-server.vercel.app/reply-user`, values)
                     .then(res => {
                         console.log(res)
                     })
