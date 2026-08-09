@@ -5,17 +5,13 @@ import validAll, { validNew, validUpload } from "../data/valid";
 
 import { RiLoader2Fill } from "react-icons/ri";
 
-import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage"
-
 import { MdErrorOutline } from "react-icons/md";
-import appFire from "../data/firebase";
 import { BsCheckCircle } from "react-icons/bs";
 import axios from "axios";
 import { API_URL } from "../api";
+import { uploadToCloudinary } from "../config/cloudinary";
 
 function UploadMainscure() {
-    const storage = getStorage(appFire)
-
     const [errors, setErrors] = useState("");
     const [uploading, setUploading ] = useState(false)
     const [uploadState, setUploadState ] = useState(false)
@@ -43,16 +39,15 @@ function UploadMainscure() {
         if (validUpload(values).valid) {
             if(image) {
                 try {
-
-                    // set of image in storage
                     setUploading(true)
-                    const storageImageRef = ref(storage, `manuscripts/${values.title}/`+values.title)
-                    await uploadBytes(storageImageRef, image)
-                    const downloadImageURL = await getDownloadURL(storageImageRef)
+                    const downloadImageURL = await uploadToCloudinary(
+                        image,
+                        `manuscripts/${values.title}`,
+                        "raw"
+                    )
                     values.file = downloadImageURL
 
-                    // save in db
-                    axios.post(`${API_URL}/upload-manuscript`, values)
+                    await axios.post(`${API_URL}/upload-manuscript`, values)
                     .then(res => {
                         console.log(res)
                     })

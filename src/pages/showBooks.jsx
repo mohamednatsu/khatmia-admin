@@ -30,7 +30,7 @@ function ShowBooks() {
     }, []);
 
     const deleteBook = (titleBook) => {
-        axios.delete(`${API_URL}/get-books/${titleBook}`).
+        axios.delete(`${API_URL}/delete-book-title/${titleBook}`).
         then((res) => {
             console.log(res)
             getAll()

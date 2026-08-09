@@ -31,31 +31,31 @@ export default function Navbar() {
                 <div className={`w-full md:block md:w-auto ${open ? "" : "hidden"}`} id="navbar-default">
                     <ul className=" font-cairo font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 content-center dark:border-gray-700">
                         <li>
-                            <NavLink to="/books" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الكتب</NavLink>
+                            <NavLink to="/admin/books" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الكتب</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/sounds" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">صوتيات</NavLink>
+                            <NavLink to="/admin/sounds" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">صوتيات</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/news" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الاخبار</NavLink>
+                            <NavLink to="/admin/news" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الاخبار</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/users" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الأعضاء</NavLink>
+                            <NavLink to="/admin/users" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الأعضاء</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/events" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الاحداث</NavLink>
+                            <NavLink to="/admin/events" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الاحداث</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/videos" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الفيديوهات</NavLink>
+                            <NavLink to="/admin/videos" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الفيديوهات</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/invest" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">التحقيقات</NavLink>
+                            <NavLink to="/admin/invest" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">التحقيقات</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/manuscripts" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">المخطوطات</NavLink>
+                            <NavLink to="/admin/manuscripts" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">المخطوطات</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/photos" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الصور</NavLink>
+                            <NavLink to="/admin/photos" className={({ isActive }) => (isActive ? 'block py-2 px-3  text-red-500' : 'block py-2 px-3  text-black')} aria-current="page">الصور</NavLink>
                         </li>
                         {
                             Cookies.get("token") ? (

@@ -51,29 +51,29 @@ export default function App() {
           <>  
       <Navbar />
       <Routes>
-        <Route path="/" element={<Upload />} />
-        <Route path="/books" element={<ShowBooks />} />
-        <Route path="/upload-news" element={<UploadNews />} />
-        <Route path="/upload-video" element={<UploadVideo />} />
-        <Route path="/upload-sound-file" element={<UploadSoundFile />} />
-        <Route path="/upload-sound-link" element={<UploadSoundLink />} />
-        <Route path="/sounds" element={<Sounds />} />
-        <Route path="/news" element={<News />} />
-        <Route path="/edit-new" element={<EditNew />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/upload-event" element={<Events />} />ْ
-        <Route path="/videos" element={<Videos />} />ْ
-        <Route path="/upload-photo" element={<UploadPhoto />} />
-        <Route path="/events" element={<AllEvents />} />
-        <Route path="/fatwa" element={<Allfatwa />} />
-        <Route path="/contact" element={<AllContact />} />
-        <Route path="/reply" element={<Reply />} />
-        <Route path="/photos" element={<Photos />} />
-        <Route path="/invest" element={<Invests />} />
-        <Route path="/upload-invest" element={<UploadInvest />} />
-        <Route path="/upload-manuscript" element={<UploadMainscure />} />
-        <Route path="/manuscripts" element={<Manuscript />} />
-        <Route path="/upload-lecture" element={<UploadLectures />} />
+        <Route path="/admin" element={<Upload />} />
+        <Route path="/admin/books" element={<ShowBooks />} />
+        <Route path="/admin/upload-news" element={<UploadNews />} />
+        <Route path="/admin/upload-video" element={<UploadVideo />} />
+        <Route path="/admin/upload-sound-file" element={<UploadSoundFile />} />
+        <Route path="/admin/upload-sound-link" element={<UploadSoundLink />} />
+        <Route path="/admin/sounds" element={<Sounds />} />
+        <Route path="/admin/news" element={<News />} />
+        <Route path="/admin/edit-news" element={<EditNew />} />
+        <Route path="/admin/users" element={<Users />} />
+        <Route path="/admin/upload-event" element={<Events />} />ْ
+        <Route path="/admin/videos" element={<Videos />} />ْ
+        <Route path="/admin/upload-photo" element={<UploadPhoto />} />
+        <Route path="/admin/events" element={<AllEvents />} />
+        <Route path="/admin/fatwa" element={<Allfatwa />} />
+        <Route path="/admin/contact" element={<AllContact />} />
+        <Route path="/admin/reply" element={<Reply />} />
+        <Route path="/admin/photos" element={<Photos />} />
+        <Route path="/admin/invest" element={<Invests />} />
+        <Route path="/admin/upload-invest" element={<UploadInvest />} />
+        <Route path="/admin/upload-manuscript" element={<UploadMainscure />} />
+        <Route path="/admin/manuscripts" element={<Manuscript />} />
+        <Route path="/admin/upload-lecture" element={<UploadLectures />} />
       </Routes>
           </>
         ) : (

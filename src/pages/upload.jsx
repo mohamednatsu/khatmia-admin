@@ -5,18 +5,15 @@ import validAll from "../data/valid";
 
 import { RiLoader2Fill } from "react-icons/ri";
 
-import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage"
-
 import { MdErrorOutline } from "react-icons/md";
-import appFire from "../data/firebase";
 import { BsCheckCircle } from "react-icons/bs";
 import axios from "axios";
 import { API_URL } from "../api";
+import { uploadToCloudinary } from "../config/cloudinary";
 
 function Upload() {
     
     
-    const storage = getStorage(appFire)
     const [selectedOption, setSelectedOption] = useState('');
     const [errors, setErrors] = useState("");
     const [uploading, setUploading ] = useState(false)
@@ -57,27 +54,27 @@ function Upload() {
         if (validAll(values).valid) {
             if(image && file) {
                 try {
-                    // set of image in storage
                     setUploading(true)
-                    
-                    const storageImageRef = ref(storage, `books/${values.category}/${values.title}/`+values.title)
-                    await uploadBytes(storageImageRef, image)
-                    const downloadImageURL = await getDownloadURL(storageImageRef)
-                    console.log("image:",downloadImageURL)
+
+                    const downloadImageURL = await uploadToCloudinary(
+                        image,
+                        `books/${values.category}/${values.title}`,
+                        "image"
+                    )
+                    console.log("image:", downloadImageURL)
                     setImageURL(downloadImageURL)
                     values.cover = downloadImageURL
 
-                    // set of file in storage
-                    const storageFileRef = ref(storage, `books/${values.category}/${values.title}/`+file.name)
-                    await uploadBytes(storageFileRef, file)
-                    const downloadFileURL = await getDownloadURL(storageFileRef)
-                    console.log("file:",downloadFileURL)
+                    const downloadFileURL = await uploadToCloudinary(
+                        file,
+                        `books/${values.category}/${values.title}`,
+                        "raw"
+                    )
+                    console.log("file:", downloadFileURL)
                     setFileURL(downloadFileURL)
                     values.bookfile = downloadFileURL
 
-                    // save in db
-                    
-                    axios.post(`${API_URL}/upload-book`, values)
+                    await axios.post(`${API_URL}/upload-book`, values)
                     .then(res => {
                         console.log(res)
                     })
